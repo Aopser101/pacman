@@ -28,7 +28,16 @@ struct Graph{
         tie(x,y)=id;
         return 0<=x<width && 0<=y<height;
     }
+    
+    inline bool passable(Location id){
+        return !walls.count(id);
+    }
 
+};
+
+
+
+#endif // PATHFINDING_H_INCLUDED
 };
 
 
