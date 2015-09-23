@@ -3,7 +3,7 @@
 #include <conio.h>
 #include <windows.h>
 #include <time.h>
-
+#include "pathfinding.h"
 using namespace std;
 
 bool valid_move(char next_position){
@@ -34,6 +34,17 @@ void drawmap(char map[][30]){
 }
 
 int main(){
+	Graph grid(30, 10);
+	add_rect(grid, 0, 0, 1, 10);
+	add_rect(grid, 1, 0, 30, 1);
+	add_rect(grid, 12, 1, 13, 2);
+	add_rect(grid, 16, 1, 17, 2);
+	add_rect(grid, 12, 2, 13, 3);
+	add_rect(grid, 16, 2, 17, 3);
+	add_rect(grid, 12, 3, 17, 4);
+	add_rect(grid, 1, 9, 30, 10);
+	add_rect(grid, 29, 1, 30, 9);
+	add_rect(grid, 4, 5, 25, 6);
 	time_t start = time(0);
 	char map[10][30] = {
 		"XXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
@@ -53,7 +64,7 @@ int main(){
 	cout << "Press ESC to quit playing" << '\n' << '\n';
 	drawmap(map);
 	while (true){
-		ch =_getch();
+		ch = _getch();
 		switch (ch)
 		{
 		case 72:	// move up
@@ -72,7 +83,7 @@ int main(){
 				cout << "Score: " << score << "." << '\n';
 				double seconds_since_start = difftime(time(0), start);
 				cout << "You have been playing for " << seconds_since_start << " seconds" << '\n';
-				if (score==179){
+				if (score == 179){
 					cout << "Congratulations, you won! Press Esc to exit the game.";
 				}
 			}
@@ -93,7 +104,7 @@ int main(){
 				cout << "Score: " << score << "." << '\n';
 				double seconds_since_start = difftime(time(0), start);
 				cout << "You have been playing for " << seconds_since_start << " seconds" << '\n';
-				if (score==179){
+				if (score == 179){
 					cout << "Congratulations, you won! Press Esc to exit the game.";
 				}
 			}
@@ -114,7 +125,7 @@ int main(){
 				cout << "Score: " << score << "." << '\n';
 				double seconds_since_start = difftime(time(0), start);
 				cout << "You have been playing for " << seconds_since_start << " seconds" << '\n';
-				if (score==179){
+				if (score == 179){
 					cout << "Congratulations, you won! Press Esc to exit the game.";
 				}
 			}
@@ -135,7 +146,7 @@ int main(){
 				cout << "Score: " << score << "." << '\n';
 				double seconds_since_start = difftime(time(0), start);
 				cout << "You have been playing for " << seconds_since_start << " seconds" << '\n';
-				if (score==179){
+				if (score == 179){
 					cout << "Congratulations, you won! Press Esc to exit the game.";
 				}
 			}
