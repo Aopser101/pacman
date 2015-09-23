@@ -6,7 +6,7 @@
 #include "pathfinding.h"
 using namespace std;
 
-bool valid_move(char next_position){
+bool valid_move(char next_position){	//check if next location is a wall
 	if (next_position == 'X'){
 		return false;
 	}
@@ -15,7 +15,7 @@ bool valid_move(char next_position){
 	}
 }
 
-int updatepoints(int score, char c){
+int updatepoints(int score, char c){	//update points, number of dots eaten
 	if (c == '.'){
 		return score + 1;
 	}
@@ -24,7 +24,7 @@ int updatepoints(int score, char c){
 	}
 }
 
-void drawmap(char map[][30]){
+void drawmap(char map[][30]){	//planning on deleting after Graph class in pathfinding.h is debugged
 	for (int row = 0; row<10; row++){
 		for (int column = 0; column<30; column++){
 			cout << map[row][column];
@@ -34,19 +34,19 @@ void drawmap(char map[][30]){
 }
 
 int main(){
-	Graph grid(30, 10);
-	add_rect(grid, 0, 0, 1, 10);
+	Graph grid(30, 10);	//all 
+	add_rect(grid, 0, 0, 1, 10);	//of 
 	add_rect(grid, 1, 0, 30, 1);
 	add_rect(grid, 12, 1, 13, 2);
 	add_rect(grid, 16, 1, 17, 2);
 	add_rect(grid, 12, 2, 13, 3);
-	add_rect(grid, 16, 2, 17, 3);
-	add_rect(grid, 12, 3, 17, 4);
-	add_rect(grid, 1, 9, 30, 10);
-	add_rect(grid, 29, 1, 30, 9);
-	add_rect(grid, 4, 5, 25, 6);
+	add_rect(grid, 16, 2, 17, 3);	//this
+	add_rect(grid, 12, 3, 17, 4);	//doesn't
+	add_rect(grid, 1, 9, 30, 10);	//work
+	add_rect(grid, 29, 1, 30, 9);	//right
+	add_rect(grid, 4, 5, 25, 6);	/now
 	time_t start = time(0);
-	char map[10][30] = {
+	char map[10][30] = {	//planning on deleting this after finished debugging
 		"XXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 		"X...........X   X...........X",
 		"X...........X   X...........X",
@@ -59,7 +59,7 @@ int main(){
 		"XXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 	};
 	int i, j, x = 3, y = 3, ch, score = 0;
-	cout << "Welcome to Matthew Wang's text-based PAC-MAN. The objective of the game" << '\n';
+	cout << "Welcome to Matthew's' text-based PAC-MAN. The objective of the game" << '\n';
 	cout << "is to get to eat all of the dots. Use the arrow keys to move around." << '\n';
 	cout << "Press ESC to quit playing" << '\n' << '\n';
 	drawmap(map);
