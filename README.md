@@ -1,1 +1,1 @@
-Matthew Wang's TWO-DIMENSONAL version of PAC-MAN.
+Matthew's TWO-DIMENSONAL version of PAC-MAN.
