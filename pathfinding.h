@@ -15,26 +15,26 @@
 using namespace std;
 
 template <typename T>
-struct Graph{
-	typedef tuple<int, int> Location;
+struct Graph{	//this will be the map
+	typedef tuple<int, int> Location;	//basically an (x,y) coordinate
 	static array<Location, 4> DIRS;
 
 	unordered_set<Location>walls;
 
 	int width, height;
-	Graph(int width_, int height_) :width(width_), height(height_){}
+	Graph(int width_, int height_) :width(width_), height(height_){}	//constructor
 
-	inline bool in_bounds(Location id){
+	inline bool in_bounds(Location id){	//make sure in bounds
 		int x, y;
 		tie(x, y) = id;
 		return 0 <= x<width && 0 <= y<height;
 	}
 
-	inline bool passable(Location id){
+	inline bool passable(Location id){	//check if wall
 		return !walls.count(id);
 	}
 
-	vector<Location> neighbors(Location id){
+	vector<Location> neighbors(Location id){	//return 4 neighbors
 		int x, y, dx, dy;
 		tie(x, y) = id;
 		bool possible;
@@ -52,7 +52,7 @@ struct Graph{
 		}
 		return results;
 	}
-	inline void add_rect(Graph& grid, int x1, int y1, int x2, int y2) {
+	inline void add_rect(Graph& grid, int x1, int y1, int x2, int y2) {	//create walls (this part doesn't work atm)
 		for (int x = x1; x < x2; ++x) {
 			for (int y = y1; y < y2; ++y) {
 				grid.walls.insert(Graph::Location{ x, y });
@@ -65,7 +65,7 @@ template<typename T>
 array<Graph::Location, 4> Graph::DIRS{ Graph::Location{ 1, 0 }, Graph::Location{ 0, -1 }, Graph::Location{ -1, 0 }, Graph::Location{ 0, 1 } };
 
 template<typename T>
-inline int heuristic(Graph::Location a, Graph::Location b) {
+inline int heuristic(Graph::Location a, Graph::Location b) {	//Manhattan distance
 	int x1, y1, x2, y2;
 	tie(x1, y1) = a;
 	tie(x2, y2) = b;
@@ -100,14 +100,14 @@ unordered_map<typename Graph::Location, typename Graph::Location>& came_from,
 unordered_map<typename Graph::Location, int>& cost_so_far)
 {
 	typedef typename Graph::Location Location;
-	PriorityQueue<Location> frontier;
+	PriorityQueue<Location> frontier;	//possible next locations
 	frontier.put(start, 0);
 
 	came_from[start] = start;
 	cost_so_far[start] = 0;
 
 	while (!frontier.empty()) {
-		auto current = frontier.get();
+		auto current = frontier.get();	//get next location from frontier
 
 		if (current == goal) {
 			break;
@@ -126,7 +126,7 @@ unordered_map<typename Graph::Location, int>& cost_so_far)
 }
 
 template<typename T>
-void draw_grid(const Graph& graph, int field_width,
+void draw_grid(const Graph& graph, int field_width,	
 	unordered_map<typename Graph::Location, int>* distances = nullptr,
 	unordered_map<typename Graph::Location, typename Graph::Location>* point_to = nullptr,
 	vector<typename Graph::Location>* path = nullptr) {
@@ -135,7 +135,7 @@ void draw_grid(const Graph& graph, int field_width,
 			typename Graph::Location id{ x, y };
 			std::cout << std::left << std::setw(field_width);
 			if (graph.walls.count(id)) {
-				std::cout << string(field_width, 'X');
+				std::cout << string(field_width, 'X');	
 			}
 			else {
 				cout << '.';
