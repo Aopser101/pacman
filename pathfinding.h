@@ -19,7 +19,7 @@ struct Graph{
 	typedef tuple<int, int> Location;
 	static array<Location, 4> DIRS;
 
-	unordered_set<Location>Walls;
+	unordered_set<Location>walls;
 
 	int width, height;
 	Graph(int width_, int height_) :width(width_), height(height_){}
@@ -52,11 +52,19 @@ struct Graph{
 		}
 		return results;
 	}
+	inline void add_rect(Graph& grid, int x1, int y1, int x2, int y2) {
+		for (int x = x1; x < x2; ++x) {
+			for (int y = y1; y < y2; ++y) {
+				grid.walls.insert(Graph::Location{ x, y });
+			}
+		}
+	}
 };
 
+template<typename T>
 array<Graph::Location, 4> Graph::DIRS{ Graph::Location{ 1, 0 }, Graph::Location{ 0, -1 }, Graph::Location{ -1, 0 }, Graph::Location{ 0, 1 } };
 
-
+template<typename T>
 inline int heuristic(Graph::Location a, Graph::Location b) {
 	int x1, y1, x2, y2;
 	tie(x1, y1) = a;
@@ -117,4 +125,25 @@ unordered_map<typename Graph::Location, int>& cost_so_far)
 	}
 }
 
+template<typename T>
+void draw_grid(const Graph& graph, int field_width,
+	unordered_map<typename Graph::Location, int>* distances = nullptr,
+	unordered_map<typename Graph::Location, typename Graph::Location>* point_to = nullptr,
+	vector<typename Graph::Location>* path = nullptr) {
+	for (int y = 0; y != graph.height; ++y) {
+		for (int x = 0; x != graph.width; ++x) {
+			typename Graph::Location id{ x, y };
+			std::cout << std::left << std::setw(field_width);
+			if (graph.walls.count(id)) {
+				std::cout << string(field_width, 'X');
+			}
+			else {
+				cout << '.';
+			}
+		}
+		std::cout << std::endl;
+	}
+}
+
+#endif // PATHFINDING_H_INCLUDED
 #endif // PATHFINDING_H_INCLUDED
